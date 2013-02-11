@@ -76,8 +76,7 @@
 						<ul>
 							<li>Where to start?</li>
 							<li>Meet the APIs</li>
-							<li>UI Guidelines, sort of</li>
-							<li>The good and the bad</li>
+							<li>The Good and the Bad</li>
 							<li>Ressources</li>
 						</ul>
 					</section>
@@ -359,6 +358,240 @@ Template: your-parent-theme
 						</ul>
 					</section>
 
+				</section>
+
+				<section>
+
+					<h1>Plugins</h1>
+
+					<aside class="notes">
+						<p>Plugins bieten Flexibilität, du kannst WordPress unendlich erweitern.</p>
+					</aside>
+
+				</section>
+
+				<section>
+
+					<section>
+						<h1>Where to start?</h1>
+					</section>
+
+					<section>
+						<h2>From scratch?</h2>
+						<p class="fragment"><strong>Nope</strong>, there is the fantastic <a href="https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate">WordPress Plugin Boilerplate</a> and even a <a href="http://themergency.com/generators/wordpress-plugin-boilerplate/">code generator</a> for the lazy ones.</p>
+					</section>
+
+					<section>
+						<h2>Using the WordPress Plugin Boilerplate</h2>
+						<pre><code contenteditable class="php">class DemoPlugin {
+    public function __construct() {
+        load_plugin_textdomain( 'demo-plugin', false,
+            dirname( plugin_basename( __FILE__ ) ) . '/lang' );
+
+        add_action( 'wp_enqueue_scripts',
+            array( $this, 'register_plugin_styles' ) );
+        add_action( 'wp_enqueue_scripts',
+            array( $this, 'register_plugin_scripts' ) );
+        add_filter( 'the_content',
+            array( $this, 'append_post_notification' ) );
+    }
+}</code></pre>
+						<p>This example is from <a href="http://wp.tutsplus.com/tutorials/plugins/two-ways-to-develop-wordpress-plugins-object-oriented-progamming/">WP Tuts+</a>.</p>
+					</section>
+
+					<section>
+						<h2>Create your own?!</h2>
+						<p class="fragment">After you wrote a few plugins yourself, you might feel the need to create your own boilerplate.</p>
+					</section>
+
+				</section>
+
+				<section>
+
+					<section>
+						<h1>Meet the APIs</h1>
+						<p class="fragment">
+							<small>WordPress currently <a href="http://codex.wordpress.org/WordPress_API's">lists 16 different APIs</a> available for you to work with.</small>
+						</p>
+					</section>
+
+					<section>
+						<h2>Plugin API</h2>
+						<p>
+							WordPress <a href="http://codex.wordpress.org/Plugin_API">Plugin API</a> is the <strong>action and filter hooks system</strong>, that allows you to hook in where your plugin has to.
+						</p>
+						<pre class="fragment"><code contenteditable class="php">// Create a new filter hook
+$my_args = apply_filters( 'req_args_filter', $args );
+
+// Create your own action hook
+do_action( 'req_header_action' );</code></pre>
+					</section>
+
+					<section>
+						<h2>Plugin API</h2>
+						<p>Now people can filter your <code>$my_args</code> and attach an action to <code>req_header_action</code>:</p>
+						<pre><code contenteditable class="php">// Add a filter to $my_args
+function my_custom_args_filter( $args ) {
+	// do something with the data
+	return $args;
+}
+add_filter( 'req_args_filter', 'my_custom_args_filter' );
+
+// Add an action to req_header_action
+function my_custom_header_action() {
+	// Do whatever you like ;-)
+	echo 'Hello my friend';
+}
+add_action( 'req_header_action', 'my_custom_header_action' );</code></pre>
+					</section>
+
+					<section>
+						<h2>Plugin API</h2>
+						<p>Your plugin might leave data as options or you need custom tables, please make use of the <strong>activation/deactivation and uninstall hooks</strong> to add or remove data.</p>
+						<ul>
+							<li><code>register_activation_hook()</code> run code on plugin activation</li>
+							<li><code>register_deactivation_hook()</code> run code on plugin deactivation</li>
+							<li><code>register_uninstall_hook()</code> or <code>uninstall.php</code> here you actually delete whatever your plugin created</li>
+					</section>
+
+					<section>
+						<h2>Options API</h2>
+						<p>Need to save global plugin options? Use the <a href="http://codex.wordpress.org/Options_API">Options API</a>.</p>
+						<pre class="fragment"><code contenteditable class="php">// Store some data
+$my_option = array( 'state' => 'yellow', 'version' => '0.1.0' );
+update_option( 'my_plugin_option', $my_option );
+
+// Get the data back
+$options 	= get_option( 'my_plugin_option' );
+$state 		= $options['state'];
+$version	= $options['version'];</code></pre>
+					</section>
+
+					<section>
+						<h2>Settings API</h2>
+						<p>
+							<blockquote>
+								Dealing with user inputs introduces new constraints in the option process: You need to design a user interface, monitor form submissions, handle security checks, and validate user inputs. To easily manage these common tasks, WordPress wraps the option functions into a comprehensive Settings API.
+							</blockquote>
+							<small><a href="http://www.wrox.com/WileyCDA/WroxTitle/Professional-WordPress-Plugin-Development.productCd-0470916222.html">Professional WordPress Development</a> - Chapter 7</small>
+						</p>
+					</section>
+
+					<section>
+						<h2>Settings API</h2>
+						<p>The <a href="http://codex.wordpress.org/Settings_API">Settings API</a> offers you to register groups of settings and settings fields. It also helps creating the form and handles the errors for you.</p>
+					</section>
+
+					<section>
+						<h2>HTTP API</h2>
+						<p>The <a href="http://codex.wordpress.org/HTTP_API">HTTP API</a> is an easy and standardized API to fetch remote data.</p>
+						<pre class="fragment"><code contenteditable class="php">$request = wp_remote_get( 'http://example.com' );
+$body = wp_remote_retrieve_body( $request );
+// $body contains the actual page content returned by the server</code></pre>
+					</section>
+
+					<section>
+						<h2>Transients API</h2>
+						<p>With the <a href="http://codex.wordpress.org/Transients_API">Transients API</a> you can store data that expires.</p>
+						<pre class="fragment"><code contenteditable class="php">// Get any existing copy of our transient data
+if ( false === ( $custom_query = get_transient( 'special_query' ) ) ) {
+    // It wasn't there, so regenerate the data and save the transient
+     $custom_query = new WP_Query( 'cat=5&amp;order=random&amp;tag=tech' );
+     set_transient( 'special_query', $custom_query, 12 * HOUR_IN_SECONDS );
+}
+// Use the data like you would have normally...</code></pre>
+					</section>
+
+				</section>
+
+				<section>
+
+					<section>
+						<h1>The Good and the Bad</h1>
+						<p class="fragment">
+							<small>Some simple rules for plugin development and how to find good plugins.</small>
+						</p>
+					</section>
+
+					<section data-state="alert">
+						<h2>The Bad</h2>
+						<p>If you do any of these things you gonna have a bad time.</p>
+						<ul>
+							<li>Includes a custom version of jQuery</li>
+							<li>Loads JS and CSS on all requests and admin pages</li>
+							<li>Not ready for translation or doing it wrong</li>
+							<li>Direct DB access without <code>$wpdb->prefix</code></li>
+							<li>Want some more? Visit <a href="http://crappycode.wordpress.com/">Crappy Code</a></li>
+						</ul>
+					</section>
+
+					<section data-state="soothe">
+						<h2>The Good</h2>
+						<p>It's not that hard to be the good guy, test your stuff and respect others.</p>
+						<ul>
+							<li>Respect the global namespace</li>
+							<li>Prefer API methods over direct access</li>
+							<li>Add custom action and filter hooks where appropriate</li>
+							<li>Stay close to WordPress styling in the backend</li>
+							<li>Only use custom DB tables when needed</li>
+						</ul>
+					</section>
+
+				</section>
+
+				<section>
+
+					<section>
+						<h1>Ressources</h1>
+						<p class="fragment">
+							<small>Ready to write better plugins? Here are some inputs!</small>
+					</section>
+
+					<section>
+						<h2>Create a plugin</h2>
+						<ul>
+							<li><a href="https://codex.wordpress.org/Writing_a_Plugin">The Codex on Writing a Plugin</a></li>
+							<li><a href="http://wp.tutsplus.com/tutorials/plugins/two-ways-to-develop-wordpress-plugins-object-oriented-progamming/">Develop Plugins: Object-Oriented Programming</a></li>
+							<li><a href="http://wp.tutsplus.com/tutorials/plugins/two-ways-to-develop-wordpress-plugins-functional-programming/">Develop Plugins: Functional Programming</a></li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Internationalization and Translations</h2>
+						<ul>
+							<li><a href="http://ottopress.com/2012/internationalization-youre-probably-doing-it-wrong/">Internationalization: You’re probably doing it wrong</a></li>
+							<li><a href="http://ottopress.com/2012/more-internationalization-fun/">More Internationalization Fun</a></li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>WordPress UI</h2>
+						<ul>
+							<li><a href="http://wp.tutsplus.com/tutorials/integrating-with-wordpress-ui-the-basics/">Integrating With WordPress’ UI: The Basics</a></li>
+							<li><a href="https://github.com/bueltge/WordPress-Admin-Style">WordPress Admin Style Plugin</a></li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Books</h2>
+						<ul>
+							<li><a href="http://digwp.com/book/">Digging into WordPress</a></li>
+							<li><a href="http://www.wrox.com/WileyCDA/WroxTitle/Professional-WordPress-Plugin-Development.productCd-0470916222.html">Professional WordPress Plugin Development</a></li>
+						</ul>
+					</section>
+
+				</section>
+
+				<section>
+					<h1>Five more things!</h1>
+
+					<ol>
+						<li class="fragment">The core is your friend, read the WordPress code.</li>
+						<li class="fragment">Inspire yourself by digging through great plugins.</li>
+						<li class="fragment">Get involved in the community, we need everyone.</li>
+						<li class="fragment">Localize your stuff, so people can <strong>easily translate it</strong>.</li>
+						<li class="fragment"><strong>Go and build something awesome!</strong></li>
+					</ol>
 				</section>
 
 				<section>
