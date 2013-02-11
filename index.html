@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Developing for WordPress - Do's and Dont's - Silvan Hagen</title>
+
+		<meta name="description" content="A presentation of learnings and tips to develop themes and plugins for WordPress">
+		<meta name="author" content="Silvan Hagen">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/beige.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section>
+
+					<h1>Developing for WordPress</h1>
+					<h3>Do's and Dont's</h3>
+					<p>
+						Hashtag for today: <strong>#WPKonferenz</strong>
+					</p>
+					<p>
+						<small>Created by <a href="http://required.ch">Silvan Hagen</a> / <a href="http://twitter.com/neverything">@neverything</a></small>
+					</p>
+
+					<aside class="notes">
+						<p>Vorstellen, arbeite für required+ als Frontend und WordPress Dev, meine erste Präsentation, Sprachwunsch? Schon mit WordPress entwickelt? Gut dann legen wir los! Fragen einfach stellen!</p>
+					</aside>
+
+				</section>
+
+				<section>
+
+					<section>
+						<h1>What's on the menu today?</h1>
+					</section>
+
+					<section>
+						<h2>Developing Themes</h2>
+						<ul>
+							<li>Where to start?</li>
+							<li>How to use assets</li>
+							<li>Child Theme or not?</li>
+							<li><code>Code:</code> Theme or Plugin?</li>
+							<li>Ressources</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Developing Plugins</h2>
+						<ul>
+							<li>Where to start?</li>
+							<li>Meet the APIs</li>
+							<li>UI Guidelines, sort of</li>
+							<li>The good and the bad</li>
+							<li>Ressources</li>
+						</ul>
+					</section>
+
+				</section>
+
+				<section>
+
+					<h1>Themes</h1>
+
+					<aside class="notes">
+						<p>Themes bestimmen das Design einer WordPress Seite! Man kann aber auch Funktionalität in Themes packen, aber dazu später mehr.</p>
+					</aside>
+
+				</section>
+
+				<section>
+
+					<section>
+
+						<h1>Where to start?</h1>
+
+					</section>
+
+					<section>
+
+						<h2>From scratch?</h2>
+						<p class="fragment">
+							<strong>Nah</strong>, there are too many solid boilerplates!
+						</p>
+
+					</section>
+
+					<section>
+
+						<h2>With a theme framework or blank theme?</h2>
+						<p class="fragment">
+							There are some fantastic WordPress theme frameworks and blank themes!
+						</p>
+
+					</section>
+
+					<section>
+
+						<h2>Free <small>Yeah!</small></h2>
+						<ul>
+							<li>
+								<a href="http://underscores.me/">Underscores (_S)</a>
+							</li>
+							<li>
+								<a href="http://themeshaper.com/thematic/">Thematic</a>
+							</li>
+							<li>
+								<a href="http://themehybrid.com/themes/hybrid">Hybrid</a> (paid option available)
+							</li>
+							<li>
+								<a href="http://upthemes.com/upthemes-framework/">UpThemes Framework</a>
+							</li>
+							<li>
+								<a href="http://www.rootstheme.com/">Roots</a>
+							</li>
+							<li>
+								<a href="http://themble.com/bones/">Bones</a>
+							</li>
+							<li>
+								<a href="http://themes.required.ch">required+ Foundation</a> (shameless advertisting)
+							</li>
+						</ul>
+
+					</section>
+
+					<section>
+
+						<h2>Paid</h2>
+						<ul>
+							<li>
+								<a href="http://my.studiopress.com/themes/genesis/">Genesis</a>
+							</li>
+							<li>
+								<a href="http://www.pagelines.com/pricing/">PageLines</a>
+							</li>
+							<li>
+								<a href="http://headwaythemes.com/">Headway</a>
+							</li>
+						</ul>
+
+					</section>
+
+					<section>
+
+						<h2>So should I use a theme framework?</h2>
+
+						<p class="fragment">
+							<strong>Yes</strong>, but it depends. Look at them individually and decide for yourself and the project ahead.
+						</p>
+						<p class="fragment">
+							I usually strive for base themes or frameworks that are very close to WordPress using the <strong>original template structure</strong>, not bloated with options, and so on.
+						</p>
+
+					</section>
+
+				</section>
+
+				<section>
+
+					<section>
+						<h1>How to use assets?</h1>
+						<p class="fragment">
+							<small>Stylesheets, JavaScripts and other external ressources in your theme.</small>
+						</p>
+					</section>
+
+					<section>
+						<h2>Meet action and filter hooks</h2>
+						<p>
+							<blockquote>
+								Hooks are the backbone of WordPress. They enable developers to hook into the WordPress workflow to change how it works without directly modifying the core code.
+							</blockquote>
+							<small><a href="http://www.wrox.com/WileyCDA/WroxTitle/Professional-WordPress-Plugin-Development.productCd-0470916222.html">Professional WordPress Development</a> - Chapter 3</small>
+						</p>
+					</section>
+
+					<section>
+						<h2>Example of an action and a filter hook</h2>
+						<p>
+							Example of an <a href="http://codex.wordpress.org/Plugin_API#Actions">action hook</a>:
+						</p>
+						<pre><code contenteditable class="php">function req_email_friends() {
+	wp_mail(...);
+}
+add_action ( 'wp_title', 'req_email_friends' );</code></pre>
+						<p>
+							Example of a <a href="http://codex.wordpress.org/Plugin_API#Filters">filter hook</a>:
+						</p>
+						<pre><code contenteditable class="php">function req_add_heart_to_title( $title, $sep ) {
+	$heart = '&hearts;';
+	// Append the heart to the title
+	$title .= $sep . ' ' . $heart;
+	return $title;
+}
+add_filter( 'wp_title', 'req_add_heart_to_title', 10, 2 );</code></pre>
+
+
+					</section>
+
+					<section data-state="alert">
+						<h2>You could do - but shouldn't</h2>
+						<br>
+						<pre><code contenteditable class="php">function req_my_scripts() {
+	echo '&lt;script src="&lt;?php echo get_stylesheet_directory_uri(); ?&gt;/javascripts/application.js"&gt;&lt;/script&gt;';
+}
+add_action ( 'wp_head', 'req_my_scripts' );</code></pre>
+						<p class="fragment"><small>It's a little better than putting everything in the <code>header.php</code>, but how about letting WordPress know about the assets in your theme?</small></p>
+					</section>
+
+					<section data-state="soothe">
+						<h2>You should do</h2>
+						<p>Example from <a href="https://github.com/Automattic/_s/blob/master/functions.php#L135-L151">Underscores</a>:</p>
+						<pre><code contenteditable class="php">/**
+ * Enqueue scripts and styles
+ */
+function _s_scripts() {
+	wp_enqueue_style( 'style', get_stylesheet_uri() );
+
+	wp_enqueue_script(
+		'small-menu', // ID
+		get_template_directory_uri() . '/js/small-menu.js',
+		array( 'jquery' ), // dependencies
+		'20120206', // version
+		true // in footer
+	);
+}
+add_action( 'wp_enqueue_scripts', '_s_scripts' );</code></pre>
+						<p class="fragment">
+							<small>This will still print your themes stylesheet in the header through <code>wp_head()</code> and add the <code>small-menu.js</code> to the footer using <code>wp_footer()</code>.</small>
+						</p>
+					</section>
+
+				</section>
+
+				<section>
+
+					<section>
+						<h1>Child Theme or not?</h1>
+						<p class="fragment">
+							<small>Inherit the good (and the bad) stuff from your parents can be handy!</small>
+						</p>
+					</section>
+
+					<section>
+						<h2>What the heck is a child theme?</h2>
+						<p>
+							<blockquote>
+								A WordPress child theme is a theme that inherits the functionality of another theme, called the parent theme, and allows you to modify, or add to, the functionality of that parent theme.
+							</blockquote>
+							<small><a href="http://codex.wordpress.org/Child_Themes">The Codex on Child Themes</a></small>
+					</section>
+
+					<section>
+						<h2>Child Themes in a nutshell</h2>
+						<pre><code>/wp-content
+	/themes
+		/your-parent-theme 	// your example parent theme
+		/your-child-theme 	// name doesn't matter here
+			style.css 	// required to make it work</code></pre>
+						<p>In your child themes <code>style.css</code></p>
+						<pre><code class="css">/*
+Theme Name: Your Child Theme
+Description: Child theme for the Your Parent Theme theme
+Author: Your name here
+Template: your-parent-theme
+*/
+@import url("../your-parent-theme/style.css");</code></pre>
+						<p class="fragment">
+							<small>This is all it takes to create a child theme. So far it does nothing different than the parent.</small>
+						</p>
+
+					</section>
+
+				</section>
+
+				<section>
+
+					<section>
+						<h1>Theme or Plugin?</h1>
+						<p class="fragment">
+							<small>Where should you put your custom code? An ongoing discussion in the community.</small>
+					</section>
+
+					<section data-state="alert">
+						<h2>Don't bloat your theme with shortcodes!</h2>
+						<p class="fragment">... and don't believe in theme authors selling you <code>[shortcodes]</code> as theme features.</p>
+					</section>
+
+					<section data-state="soothe">
+						<h2>Develop universal Shortcode Plugins!</h2>
+						<p class="fragment">A good example is the <a href="http://justintadlock.com/archives/2012/10/03/grid-columns-wordpress-plugin">Grid Columns Plugin by Justin Tadlock</a></p>
+					</section>
+
+					<section>
+						<h2>What about Custom Post Types?</h2>
+						<p class="fragment">Custom Post Types are WordPress one-fits-all (most) model to store content in almost any form you like.</p>
+						<p class="fragment">So <strong>it's up to you</strong> wether you add the custom post type to your theme or create a plugin.</p>
+					</section>
+
+				</section>
+
+				<section>
+
+					<section>
+						<h1>Ressources</h1>
+						<p class="fragment">
+							<small>With a community this big, consider yourself lucky!</small>
+					</section>
+
+					<section>
+						<h2>Create a theme</h2>
+						<ul>
+							<li><a href="http://themeshaper.com/2012/10/22/the-themeshaper-wordpress-theme-tutorial-2nd-edition/">The ThemeShaper WordPress Theme Tutorial: 2nd Edition</a></li>
+							<li><a href="http://codex.wordpress.org/Child_Themes">Create a child theme with TwentyTwelve</a></li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Debug your theme</h2>
+						<ul>
+							<li><a href="http://nacin.com/2010/04/23/5-ways-to-debug-wordpress/">5 Ways to Debug WordPress</a></li>
+							<li><a href="http://wordpress.org/extend/plugins/debug-bar/">Debug Bar Plugin</a></li>
+							<li><a href="http://wordpress.org/extend/plugins/developer/">Developer Plugin</a></li>
+							<li><a href="http://wordpress.org/extend/plugins/log-deprecated-notices/">Log Deprecated Notices</a></li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Test your theme</h2>
+						<ul>
+							<li><a href="http://codex.wordpress.org/Theme_Unit_Test">Official Theme Unit Test</a></li>
+							<li><a href="http://wordpress.org/extend/plugins/theme-check/">Theme-Check Plugin</a></li>
+						</ul>
+					</section>
+
+				</section>
+
+				<section>
+					<h1>Questions?</h1>
+
+					<p class="fragment">
+						<small>Further questions? Contact me: <a href="mailto:silvan@required.ch?subject=Saw your presentation dude!">silvan@required.ch</a> / <a href="http://twitter.com/neverything">@neverything</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h1>Thank you!</h1>
+					<p class="fragment">
+						<small>This presentation is available on <a href="#">GitHub</a>, <a href="#">SlideShare</a> and <a href="http://required.ch/presentations/silvan/developing-for-wordpress/">our website</a>.</small>
+					</p>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
