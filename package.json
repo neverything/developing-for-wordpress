@@ -1,16 +1,16 @@
 {
 	"name": "reveal.js",
 	"version": "2.3.0",
-	"description": "The HTML Presentation Framework",
-	"homepage": "http://lab.hakim.se/reveal-js",
+	"description": "Developing for WordPress - Do's and Dont's",
+	"homepage": "http://required.ch/presentations/silvan/developing-for-wordpress/",
 	"author": {
-		"name": "Hakim El Hattab",
-		"email": "hakim.elhattab@gmail.com",
-		"web": "http://hakim.se"
+		"name": "Silvan Hagen",
+		"email": "silvan@required.ch",
+		"web": "http://required.ch"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git://github.com/hakimel/reveal.js.git"
+		"url": "git://github.com/neverything/developing-for-wordpress.git"
 	},
 	"engines": {
 		"node": "~0.8.0"

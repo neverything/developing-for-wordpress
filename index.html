@@ -48,10 +48,6 @@
 						<small>Created by <a href="http://required.ch">Silvan Hagen</a> / <a href="http://twitter.com/neverything">@neverything</a></small>
 					</p>
 
-					<aside class="notes">
-						<p>Vorstellen, arbeite für required+ als Frontend und WordPress Dev, meine erste Präsentation, Sprachwunsch? Schon mit WordPress entwickelt? Gut dann legen wir los! Fragen einfach stellen!</p>
-					</aside>
-
 				</section>
 
 				<section>
@@ -86,10 +82,6 @@
 				<section>
 
 					<h1>Themes</h1>
-
-					<aside class="notes">
-						<p>Themes bestimmen das Design einer WordPress Seite! Man kann aber auch Funktionalität in Themes packen, aber dazu später mehr.</p>
-					</aside>
 
 				</section>
 
@@ -185,7 +177,7 @@
 					<section>
 						<h1>How to use assets?</h1>
 						<p class="fragment">
-							<small>Stylesheets, JavaScripts and other external ressources in your theme.</small>
+							Stylesheets, JavaScripts and other external ressources in your theme.
 						</p>
 					</section>
 
@@ -229,7 +221,7 @@ add_filter( 'wp_title', 'req_add_heart_to_title', 10, 2 );</code></pre>
 	echo '&lt;script src="&lt;?php echo get_stylesheet_directory_uri(); ?&gt;/javascripts/application.js"&gt;&lt;/script&gt;';
 }
 add_action ( 'wp_head', 'req_my_scripts' );</code></pre>
-						<p class="fragment"><small>It's a little better than putting everything in the <code>header.php</code>, but how about letting WordPress know about the assets in your theme?</small></p>
+						<p class="fragment">It's a little better than putting everything in the <code>header.php</code>, but how about letting WordPress know about the assets in your theme?</p>
 					</section>
 
 					<section data-state="soothe">
@@ -251,7 +243,7 @@ function _s_scripts() {
 }
 add_action( 'wp_enqueue_scripts', '_s_scripts' );</code></pre>
 						<p class="fragment">
-							<small>This will still print your themes stylesheet in the header through <code>wp_head()</code> and add the <code>small-menu.js</code> to the footer using <code>wp_footer()</code>.</small>
+							This will still print your themes stylesheet in the header through <code>wp_head()</code> and add the <code>small-menu.js</code> to the footer using <code>wp_footer()</code>.
 						</p>
 					</section>
 
@@ -262,7 +254,7 @@ add_action( 'wp_enqueue_scripts', '_s_scripts' );</code></pre>
 					<section>
 						<h1>Child Theme or not?</h1>
 						<p class="fragment">
-							<small>Inherit the good (and the bad) stuff from your parents can be handy!</small>
+							Inherit the good (and the bad) stuff from your parents can be handy!
 						</p>
 					</section>
 
@@ -291,7 +283,7 @@ Template: your-parent-theme
 */
 @import url("../your-parent-theme/style.css");</code></pre>
 						<p class="fragment">
-							<small>This is all it takes to create a child theme. So far it does nothing different than the parent.</small>
+							This is all it takes to create a child theme. So far it does nothing different than the parent.
 						</p>
 
 					</section>
@@ -303,7 +295,7 @@ Template: your-parent-theme
 					<section>
 						<h1>Theme or Plugin?</h1>
 						<p class="fragment">
-							<small>Where should you put your custom code? An ongoing discussion in the community.</small>
+							Where should you put your custom code? An ongoing discussion in the community.
 					</section>
 
 					<section data-state="alert">
@@ -329,7 +321,7 @@ Template: your-parent-theme
 					<section>
 						<h1>Ressources</h1>
 						<p class="fragment">
-							<small>With a community this big, consider yourself lucky!</small>
+							With a community this big, consider yourself lucky!
 					</section>
 
 					<section>
@@ -363,10 +355,6 @@ Template: your-parent-theme
 				<section>
 
 					<h1>Plugins</h1>
-
-					<aside class="notes">
-						<p>Plugins bieten Flexibilität, du kannst WordPress unendlich erweitern.</p>
-					</aside>
 
 				</section>
 
@@ -411,7 +399,7 @@ Template: your-parent-theme
 					<section>
 						<h1>Meet the APIs</h1>
 						<p class="fragment">
-							<small>WordPress currently <a href="http://codex.wordpress.org/WordPress_API's">lists 16 different APIs</a> available for you to work with.</small>
+							WordPress currently <a href="http://codex.wordpress.org/WordPress_API's">lists 16 different APIs</a> available for you to work with.
 						</p>
 					</section>
 
@@ -509,7 +497,7 @@ if ( false === ( $custom_query = get_transient( 'special_query' ) ) ) {
 					<section>
 						<h1>The Good and the Bad</h1>
 						<p class="fragment">
-							<small>Some simple rules for plugin development and how to find good plugins.</small>
+							Some simple rules for plugin development and how to find good plugins.
 						</p>
 					</section>
 
@@ -544,7 +532,8 @@ if ( false === ( $custom_query = get_transient( 'special_query' ) ) ) {
 					<section>
 						<h1>Ressources</h1>
 						<p class="fragment">
-							<small>Ready to write better plugins? Here are some inputs!</small>
+							Ready to write better plugins? Here are some inputs!
+						</p>
 					</section>
 
 					<section>
@@ -598,14 +587,14 @@ if ( false === ( $custom_query = get_transient( 'special_query' ) ) ) {
 					<h1>Questions?</h1>
 
 					<p class="fragment">
-						<small>Further questions? Contact me: <a href="mailto:silvan@required.ch?subject=Saw your presentation dude!">silvan@required.ch</a> / <a href="http://twitter.com/neverything">@neverything</a></small>
+						Further questions? Contact me: <a href="mailto:silvan@required.ch?subject=Saw your presentation dude!">silvan@required.ch</a> / <a href="http://twitter.com/neverything">@neverything</a>
 					</p>
 				</section>
 
 				<section>
 					<h1>Thank you!</h1>
 					<p class="fragment">
-						<small>This presentation is available on <a href="#">GitHub</a>, <a href="#">SlideShare</a> and <a href="http://required.ch/presentations/silvan/developing-for-wordpress/">our website</a>.</small>
+						This presentation is available on <a href="https://github.com/neverything/developing-for-wordpress">GitHub</a>, <a href="#"><s>SlideShare</s></a> and <a href="http://required.ch/presentations/silvan/developing-for-wordpress/">our website</a>.
 					</p>
 				</section>
 			</div>
