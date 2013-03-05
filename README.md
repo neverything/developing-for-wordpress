@@ -1,0 +1,1 @@
+This presentation is available online: [Developing for WordPress](http://required.ch/presentations/silvan/developing-for-wordpress).
